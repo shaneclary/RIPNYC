@@ -11,7 +11,7 @@ interface SEOProps {
  * Generate metadata for pages
  */
 export function generateSEO({
-  title = "VERSE — RIP NYC Monuments",
+  title = "Verse-Monuments — RIP NYC Monuments",
   description = "Quiet acknowledgments of what ended—and what remains. Limited apparel pieces as monuments.",
   image = "/og-image.png",
   url = "",

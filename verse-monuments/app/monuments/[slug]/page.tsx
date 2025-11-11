@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: MonumentPageProps) {
   }
 
   return generateSEO({
-    title: `${monument.title} — VERSE`,
+    title: `${monument.title} — Verse-Monuments`,
     description: monument.narrative,
     image: monument.image,
   });

@@ -20,22 +20,22 @@ const unifraktur = UnifrakturCook({
 });
 
 export const metadata: Metadata = {
-  title: "VERSE — RIP NYC Monuments",
+  title: "Verse-Monuments — RIP NYC Monuments",
   description: "Quiet acknowledgments of what ended—and what remains. Limited apparel pieces as monuments.",
   keywords: "RIP NYC, monuments, apparel, streetwear, New York City, contemporary fashion, memorial clothing",
-  authors: [{ name: "VERSE" }],
-  creator: "VERSE",
+  authors: [{ name: "Verse-Monuments" }],
+  creator: "Verse-Monuments",
   openGraph: {
-    title: "VERSE — RIP NYC Monuments",
-    description: "Live in the Monument. Quiet acknowledgments of what ended—and what remains.",
+    title: "Verse-Monuments — RIP NYC Monuments",
+    description: "Living in the Monument. Quiet acknowledgments of what ended—and what remains.",
     type: "website",
-    siteName: "VERSE",
+    siteName: "Verse-Monuments",
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: "VERSE — RIP NYC Monuments",
-    description: "Live in the Monument. Quiet acknowledgments of what ended—and what remains.",
+    title: "Verse-Monuments — RIP NYC Monuments",
+    description: "Living in the Monument. Quiet acknowledgments of what ended—and what remains.",
     creator: "@verse",
   },
 };

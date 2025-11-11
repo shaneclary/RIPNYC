@@ -9,7 +9,7 @@ export default function HomePage() {
       <section className="max-w-[72rem] mx-auto px-6 py-32 md:py-40">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-unifraktur mb-8 tracking-tight leading-[1.1]">
-            Live in the Monument.
+            Living in the Monument
           </h1>
           <p className="text-lg md:text-xl text-ash/90 mb-12 leading-relaxed max-w-2xl mx-auto">
             Quiet acknowledgments of what ended—and what remains.

@@ -16,7 +16,17 @@
       "Bash(findstr:*)",
       "Bash(git init:*)",
       "Bash(git remote add:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nAdd VERSE monument apparel site - production-ready Next.js implementation\n\nImplemented complete e-commerce site for RIP NYC monument apparel collection.\n\nFeatures:\n- Six monument designs (Old English, Timeless Fade, Afterimage, Brain Rot, Bangladesh Vibe, Lennon Cut)\n- White cart drawer with localStorage persistence\n- Museum-quality typography (UnifrakturCook, Inter)\n- Form stories with detailed garment specifications\n- Dual production lines (Standard Drop, USA Maker Line)\n- Transparent pricing calculator with markup disclosure\n- Complete product detail pages with collapsible sections\n- FTC-compliant origin disclosures\n- Responsive design with refined micro-interactions\n- SEO metadata and Open Graph image generation\n\nTech stack:\n- Next.js 15.5.5 App Router\n- TypeScript (strict mode)\n- Tailwind CSS 3.4\n- Server components with client-side cart\n- Static generation for all monument pages\n\nTagline: \"Live in the Monument.\"\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(git branch:*)",
+      "Bash(git push:*)",
+      "Bash(git pull:*)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nAdd Vercel configuration for verse-monuments subdirectory\n\nConfigure Vercel to build from the verse-monuments subdirectory.\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(git remote:*)",
+      "Bash(git fetch:*)",
+      "Bash(git rm:*)",
+      "Bash(git commit:*)",
+      "Bash(cat:*)"
     ],
     "deny": [],
     "ask": []

@@ -8,8 +8,8 @@ export const CONFIG = {
 };
 
 export const SITE = {
-  name: "VERSE",
-  tagline: "Live in the Monument.",
+  name: "Verse-Monuments",
+  tagline: "Living in the Monument",
   description: "Quiet acknowledgments of what ended—and what remains.",
   url: process.env.NEXT_PUBLIC_SITE_URL || "https://verse-monuments.vercel.app",
 };

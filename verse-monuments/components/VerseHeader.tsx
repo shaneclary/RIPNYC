@@ -12,9 +12,9 @@ export default function VerseHeader() {
         <Link
           href="/"
           className="text-2xl font-unifraktur tracking-wide hover:opacity-70 transition-opacity duration-300"
-          aria-label="VERSE home"
+          aria-label="Verse-Monuments home"
         >
-          VERSE
+          Verse-Monuments
         </Link>
 
         <nav aria-label="Main navigation">

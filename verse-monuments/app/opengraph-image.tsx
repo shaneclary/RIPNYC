@@ -1,6 +1,6 @@
 import { ImageResponse } from 'next/og'
 
-export const alt = 'VERSE — RIP NYC Monuments'
+export const alt = 'Verse-Monuments — RIP NYC Monuments'
 export const size = {
   width: 1200,
   height: 630,
@@ -34,7 +34,7 @@ export default async function Image() {
             lineHeight: 1.1,
           }}
         >
-          VERSE
+          Verse-Monuments
         </div>
         <div
           style={{
@@ -45,7 +45,7 @@ export default async function Image() {
             lineHeight: 1.4,
           }}
         >
-          Live in the Monument.
+          Living in the Monument
         </div>
         <div
           style={{
