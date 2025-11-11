@@ -2,7 +2,6 @@ import MonumentCard from "@/components/MonumentCard";
 import PricingTable from "@/components/PricingTable";
 import BuyCta from "@/components/BuyCta";
 import monuments from "@/data/monuments.json";
-import lines from "@/data/lines.json";
 
 export default function HomePage() {
   return (
@@ -43,45 +42,6 @@ export default function HomePage() {
           {monuments.map((monument) => (
             <MonumentCard key={monument.id} monument={monument} />
           ))}
-        </div>
-      </section>
-
-      {/* Two Lines */}
-      <section className="max-w-[72rem] mx-auto px-6 py-20 mt-12 border-t border-hairline">
-        <div className="mb-16">
-          <h2 className="text-3xl md:text-4xl font-unifraktur mb-6 tracking-tight">
-            Two Lines
-          </h2>
-          <p className="text-ash/90 max-w-2xl mb-8 text-base leading-relaxed">
-            We offer two production approaches, each with different ethos and
-            economics.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {lines.map((line) => (
-            <div
-              key={line.id}
-              className="p-8 border border-hairline hover:border-white/30 transition-all"
-            >
-              <h3 className="text-xl font-medium mb-3">{line.name}</h3>
-              <p className="text-ash leading-relaxed mb-4">{line.blurb}</p>
-              <p className="text-sm text-ash">
-                Example wholesale: ${line.wholesaleExample}
-              </p>
-            </div>
-          ))}
-        </div>
-
-        <div className="mt-8 p-6 border border-hairline/50 bg-white/[0.02]">
-          <p className="text-sm text-ash leading-relaxed">
-            <strong className="text-white">Compliance note:</strong> When blanks
-            are imported but printing occurs domestically, products are labeled
-            "Printed in USA on imported blank." Only garments meeting the FTC
-            "all or virtually all" standard carry an unqualified "Made in USA"
-            designation. Country-of-origin reflects supplier listings; verify per
-            SKU before publishing.
-          </p>
         </div>
       </section>
 
