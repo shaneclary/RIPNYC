@@ -120,12 +120,14 @@ export default function QuickReferralPage() {
 
           {/* Earnings */}
           <div className="p-6 border border-hairline bg-white/[0.02]">
-            <h2 className="text-sm font-medium mb-3">You earn</h2>
+            <h2 className="text-sm font-medium mb-3">You earn (quick referral rate)</h2>
             <div className="space-y-2 text-sm text-ash/90">
-              <p>• <strong className="text-white">15% commission</strong> on Bangladesh Vibe line (or $6/tee floor)</p>
-              <p>• <strong className="text-white">20% commission</strong> on USA Maker line (or $8/tee floor)</p>
+              <p>• <strong className="text-white">12% commission</strong> on all products (or $6-8/tee floor)</p>
               <p>• Payouts monthly (NET-15) via {paymentMethod === "paypal" ? "PayPal" : "Venmo"}: <code className="text-white">{paymentInfo}</code></p>
               <p className="text-xs text-ash/70 pt-2">Minimum $50 payout; balances roll over.</p>
+              <p className="text-xs text-ash/70 pt-3 border-t border-hairline/50 mt-3 pt-3">
+                Want higher rates (15-30%)? <Link href="/partners/apply" className="text-white hover:text-ash transition-colors underline">Apply to Monument Circle</Link>
+              </p>
             </div>
           </div>
 
@@ -185,8 +187,15 @@ export default function QuickReferralPage() {
       <h1 className="text-4xl md:text-5xl font-unifraktur mb-6 tracking-tight">
         Quick referral
       </h1>
-      <p className="text-lg text-ash/90 mb-12 leading-relaxed">
-        Instant setup. Just enter your payment info, get your link and code, start earning 15-20%.
+      <p className="text-lg text-ash/90 mb-4 leading-relaxed">
+        Instant setup. Just enter your payment info, get your link and code, start earning 12%.
+      </p>
+      <p className="text-sm text-ash/70 mb-12 leading-relaxed">
+        Simple, lower rate. Monument Circle members earn 15-30% with tiered bonuses and perks.{" "}
+        <Link href="/partners/apply" className="text-white hover:text-ash transition-colors underline">
+          Apply here
+        </Link>{" "}
+        for higher rates.
       </p>
 
       <form onSubmit={handleGenerate} className="space-y-8">
@@ -237,12 +246,16 @@ export default function QuickReferralPage() {
 
         {/* What you get */}
         <div className="p-6 border border-hairline bg-white/[0.02]">
-          <h2 className="text-sm font-medium mb-4">What you'll get</h2>
+          <h2 className="text-sm font-medium mb-4">What you'll get (quick referral)</h2>
           <div className="space-y-3 text-sm text-ash/90">
             <p>• <strong className="text-white">Unique referral link</strong> (30-day cookie tracking)</p>
             <p>• <strong className="text-white">10% discount code</strong> for your audience</p>
-            <p>• <strong className="text-white">15-20% commission</strong> on every sale (or $6-8/tee floor)</p>
+            <p>• <strong className="text-white">12% commission</strong> on every sale (or $6-8/tee floor)</p>
             <p>• Monthly payouts via {paymentMethod === "paypal" ? "PayPal" : "Venmo"}</p>
+            <p className="text-xs text-ash/70 pt-2 border-t border-hairline/50 mt-2 pt-2">
+              Monument Circle members earn 15-30% with tier bonuses.{" "}
+              <Link href="/partners/apply" className="text-white hover:text-ash transition-colors underline">Apply here</Link>
+            </p>
           </div>
         </div>
 
