@@ -20,7 +20,7 @@ export default function QuickReferralPage() {
   const [discountCode, setDiscountCode] = useState("");
   const [referralLink, setReferralLink] = useState("");
 
-  const handleGenerate = (e: React.FormEvent) => {
+  const handleGenerate = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!paymentInfo.trim()) {
@@ -31,22 +31,36 @@ export default function QuickReferralPage() {
     // Generate random codes
     const refCode = generateRandomCode(8);
     const discCode = generateRandomCode(6) + "10"; // 6 chars + "10" for 10% off
-    const link = `https://ripnyc.vercel.app/r/${refCode}`;
+    const link = `${window.location.origin}/r/${refCode}`;
 
-    setReferralCode(refCode);
-    setDiscountCode(discCode);
-    setReferralLink(link);
+    // Save to backend
+    try {
+      const response = await fetch("/api/referrals", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          code: refCode,
+          discountCode: discCode,
+          affiliateType: "quick",
+          email: paymentInfo, // Using payment info as identifier
+          paymentMethod,
+          paymentInfo,
+          commissionRate: 0.12, // 12% for quick referrals
+        }),
+      });
 
-    // TODO: Send this to your backend to save the referral
-    console.log({
-      paymentMethod,
-      paymentInfo,
-      referralCode: refCode,
-      discountCode: discCode,
-      timestamp: new Date().toISOString(),
-    });
+      if (!response.ok) {
+        throw new Error("Failed to save referral");
+      }
 
-    setStep("generated");
+      setReferralCode(refCode);
+      setDiscountCode(discCode);
+      setReferralLink(link);
+      setStep("generated");
+    } catch (error) {
+      console.error("Failed to save referral:", error);
+      alert("There was an error generating your codes. Please try again.");
+    }
   };
 
   const copyToClipboard = (text: string) => {

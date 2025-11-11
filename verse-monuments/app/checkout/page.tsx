@@ -15,6 +15,14 @@ export default function CheckoutPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [productLine, setProductLine] = useState<"standard" | "usa">("standard");
+  const [discountCode, setDiscountCode] = useState("");
+  const [appliedDiscount, setAppliedDiscount] = useState<{
+    code: string;
+    percent: number;
+    amount: number;
+    affiliateCode?: string;
+  } | null>(null);
+  const [discountError, setDiscountError] = useState("");
 
   const [formData, setFormData] = useState({
     // Billing Info
@@ -55,9 +63,72 @@ export default function CheckoutPage() {
   }).filter(Boolean);
 
   const subtotal = lineItems.reduce((sum, item) => sum + (item?.totalPrice || 0), 0);
-  const tax = subtotal * 0.0875; // Example: 8.75% tax
+  const discountAmount = appliedDiscount?.amount || 0;
+  const subtotalAfterDiscount = subtotal - discountAmount;
+  const tax = subtotalAfterDiscount * 0.0875; // Example: 8.75% tax
   const shipping = 0; // Free shipping
-  const total = subtotal + tax + shipping;
+  const total = subtotalAfterDiscount + tax + shipping;
+
+  // Apply discount code
+  const handleApplyDiscount = async () => {
+    if (!discountCode.trim()) {
+      setDiscountError("Please enter a discount code");
+      return;
+    }
+
+    setDiscountError("");
+    setLoading(true);
+
+    try {
+      const response = await fetch("/api/discounts/validate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          code: discountCode.trim(),
+          subtotal,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (result.valid && result.discount) {
+        setAppliedDiscount({
+          code: result.discount.code,
+          percent: result.discount.discountPercent,
+          amount: result.discountAmount,
+          affiliateCode: result.affiliate?.code,
+        });
+        setDiscountError("");
+      } else {
+        setDiscountError(result.error || "Invalid discount code");
+        setAppliedDiscount(null);
+      }
+    } catch (err) {
+      setDiscountError("Failed to validate discount code");
+      setAppliedDiscount(null);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Get referral cookie for attribution
+  const getAffiliateAttribution = () => {
+    if (typeof window === "undefined") return null;
+
+    // Priority: applied discount code > referral cookie
+    if (appliedDiscount?.affiliateCode) {
+      return { code: appliedDiscount.affiliateCode, source: "discount" };
+    }
+
+    const cookies = document.cookie.split(";");
+    const affCookie = cookies.find((c) => c.trim().startsWith("verse_aff="));
+    if (affCookie) {
+      const code = affCookie.split("=")[1];
+      return { code, source: "referral" };
+    }
+
+    return null;
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     let value = e.target.value;
@@ -94,6 +165,7 @@ export default function CheckoutPage() {
     try {
       // Format card expiry for Helcim (MMYY)
       const expiryClean = formData.cardExpiry.replace(/\D/g, "");
+      const attribution = getAffiliateAttribution();
 
       const response = await fetch("/api/checkout", {
         method: "POST",
@@ -103,7 +175,7 @@ export default function CheckoutPage() {
           currency: "USD",
           customerCode: formData.email,
           invoiceNumber: `ORDER-${Date.now()}`,
-          comments: `${items.length} item(s) - ${productLine} line`,
+          comments: `${items.length} item(s) - ${productLine} line${attribution ? ` - Ref: ${attribution.code}` : ""}`,
           cardData: {
             cardNumber: formData.cardNumber.replace(/\s/g, ""),
             cardExpiry: expiryClean,
@@ -124,6 +196,15 @@ export default function CheckoutPage() {
           },
           items: lineItems,
           productLine,
+          discount: appliedDiscount ? {
+            code: appliedDiscount.code,
+            amount: appliedDiscount.amount,
+            percent: appliedDiscount.percent,
+          } : null,
+          attribution: attribution ? {
+            code: attribution.code,
+            source: attribution.source,
+          } : null,
         }),
       });
 
@@ -386,6 +467,54 @@ export default function CheckoutPage() {
               </div>
             </div>
 
+            {/* Discount Code */}
+            <div>
+              <h2 className="text-xl font-medium mb-6 tracking-tight">Discount Code</h2>
+              {appliedDiscount ? (
+                <div className="p-4 border border-green-500/50 bg-green-500/10 rounded-sm">
+                  <div className="flex justify-between items-center">
+                    <div>
+                      <div className="text-green-300 font-medium">{appliedDiscount.code}</div>
+                      <div className="text-sm text-green-300/70">{appliedDiscount.percent}% off applied</div>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setAppliedDiscount(null);
+                        setDiscountCode("");
+                      }}
+                      className="text-sm text-green-300/70 hover:text-green-300 transition-colors underline"
+                    >
+                      Remove
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <div className="space-y-3">
+                  <div className="flex gap-3">
+                    <input
+                      type="text"
+                      value={discountCode}
+                      onChange={(e) => setDiscountCode(e.target.value.toUpperCase())}
+                      placeholder="Enter code"
+                      className="flex-1 px-4 py-3 bg-white/[0.05] border border-hairline text-white placeholder-ash/50 focus:outline-none focus:border-white transition-colors uppercase"
+                    />
+                    <button
+                      type="button"
+                      onClick={handleApplyDiscount}
+                      disabled={loading || !discountCode.trim()}
+                      className="px-6 py-3 bg-white/10 border border-hairline text-white hover:bg-white/20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      Apply
+                    </button>
+                  </div>
+                  {discountError && (
+                    <p className="text-sm text-red-300">{discountError}</p>
+                  )}
+                </div>
+              )}
+            </div>
+
             {/* Error Message */}
             {error && (
               <div className="p-4 border border-red-500/50 bg-red-500/10 text-red-300 rounded-sm">
@@ -441,6 +570,12 @@ export default function CheckoutPage() {
                 <span className="text-ash/90">Subtotal</span>
                 <span>{formatPrice(subtotal)}</span>
               </div>
+              {appliedDiscount && (
+                <div className="flex justify-between text-green-300">
+                  <span>Discount ({appliedDiscount.code})</span>
+                  <span>-{formatPrice(appliedDiscount.amount)}</span>
+                </div>
+              )}
               <div className="flex justify-between">
                 <span className="text-ash/90">Shipping</span>
                 <span>{shipping === 0 ? "Free" : formatPrice(shipping)}</span>
