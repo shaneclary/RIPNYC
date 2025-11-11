@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function VerseFooter() {
   const currentYear = new Date().getFullYear();
 
@@ -7,7 +9,17 @@ export default function VerseFooter() {
         <div className="flex flex-col gap-8 text-sm text-ash">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <p className="font-unifraktur text-2xl text-white tracking-wide">Verse-Monuments</p>
-            <p className="italic">A timestamp in cloth.</p>
+            <nav className="flex gap-6 text-sm">
+              <Link href="/#monuments" className="hover:text-white transition-colors">
+                Shop
+              </Link>
+              <Link href="/meaning" className="hover:text-white transition-colors">
+                Meaning
+              </Link>
+              <Link href="/partners" className="hover:text-white transition-colors">
+                Partners
+              </Link>
+            </nav>
           </div>
 
           <div className="pt-8 border-t border-hairline">
