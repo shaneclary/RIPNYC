@@ -1,0 +1,14 @@
+[
+  {
+    "id": "standard",
+    "name": "Standard Drop",
+    "blurb": "On-demand via global supply. Fastest launch.",
+    "wholesaleExample": 18
+  },
+  {
+    "id": "usa",
+    "name": "USA Maker Line",
+    "blurb": "Printed in the USA; optionally on USA-made blanks. Higher ethos, higher cost.",
+    "wholesaleExample": 28
+  }
+]
