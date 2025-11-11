@@ -1,5 +1,4 @@
 import MonumentCard from "@/components/MonumentCard";
-import PricingTable from "@/components/PricingTable";
 import BuyCta from "@/components/BuyCta";
 import monuments from "@/data/monuments.json";
 
@@ -43,21 +42,6 @@ export default function HomePage() {
             <MonumentCard key={monument.id} monument={monument} />
           ))}
         </div>
-      </section>
-
-      {/* Pricing */}
-      <section id="pricing" className="max-w-[72rem] mx-auto px-6 py-16 border-t border-hairline">
-        <div className="mb-12">
-          <h2 className="text-3xl md:text-4xl font-unifraktur mb-4">
-            Pricing
-          </h2>
-          <p className="text-ash max-w-2xl">
-            Transparent markup structure across both lines. Adjust wholesale
-            inputs to see calculated MSRP.
-          </p>
-        </div>
-
-        <PricingTable />
       </section>
 
       {/* Meaning Teaser */}
